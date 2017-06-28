@@ -77,12 +77,19 @@
  '(org-babel-load-languages (quote ((emacs-lisp . t) (python . t))))
  '(org-capture-templates
    (quote
-    (("t" "Capture task to tasks.org" entry
-      (file "~/Dropbox/emacs/tasks.org")
-      "* TODO %?"))))
+    (("m" "Capture meeting (meetings.org)" entry
+      (file "meetings.org")
+      (file "meetings.template")
+      :jump-to-captured t)
+     ("t" "Capture task (tasks.org)" entry
+      (file "tasks.org")
+      "** TODO %?")
+     ("i" "Capture idea (ideas.org)" entry
+      (file "ideas.org")
+      "* %?" :jump-to-captured t))))
  '(org-confirm-babel-evaluate nil)
  '(org-cycle-level-faces nil)
- '(org-directory "~/Dropbox/emacs")
+ '(org-directory "~/Dropbox/emacs/org")
  '(org-fontify-done-headline t)
  '(org-hide-leading-stars t)
  '(org-latex-default-packages-alist
@@ -106,7 +113,7 @@
  '(org-latex-tables-centered nil)
  '(org-modules
    (quote
-    (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-mouse org-rmail org-w3m org-bullets org-learn org-track)))
+    (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-mouse org-rmail org-w3m)))
  '(org-pretty-entities t)
  '(org-src-fontify-natively t)
  '(org-todo-keywords (quote ((sequence "TODO" "DONE" "CANCELLED"))))
@@ -252,8 +259,6 @@
 (global-set-key [C-right] 'next-buffer)
 ; Org Mode
 (global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
 ; Lang switcher with Karabiner and Caps Lock
 (global-set-key (kbd "<f12>") (kbd "C-\\"))
-; iTunes
-(global-set-key (kbd "C-c i p") (lambda () (interactive) (do-applescript "tell application \"iTunes\" to playpause")))
-(global-set-key (kbd "C-c i n") (lambda () (interactive) (do-applescript "tell application \"iTunes\" to next track")))
