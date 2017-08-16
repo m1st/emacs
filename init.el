@@ -72,7 +72,7 @@
  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 1) ((control)))))
  '(ns-antialias-text t)
  '(ns-pop-up-frames nil)
- '(org-agenda-files (quote ("~/Dropbox/emacs")))
+ '(org-agenda-files (quote ("~/Dropbox/emacs/org")))
  '(org-agenda-mouse-1-follows-link t)
  '(org-babel-load-languages (quote ((emacs-lisp . t) (python . t))))
  '(org-capture-templates
@@ -91,7 +91,6 @@
  '(org-cycle-level-faces nil)
  '(org-directory "~/Dropbox/emacs/org")
  '(org-fontify-done-headline t)
- '(org-hide-leading-stars t)
  '(org-latex-default-packages-alist
    (quote
     (("AUTO" "inputenc" t
@@ -124,7 +123,7 @@
  '(package-enable-at-startup t)
  '(package-selected-packages
    (quote
-    (magithub diminish smartparens cider clojure-snippets hydra elein helm-google helm-cider clj-refactor rainbow-delimiters yaml-mode company-jedi python solarized-theme material-theme darcula-theme flycheck highlight-thing undo-tree exec-path-from-shell ess ssh jabber-otr jabber elpy writeroom-mode popwin org pandoc-mode pandoc markdown-mode multiple-cursors dracula-theme ##)))
+    (slime slime-company osx-plist ox-tiddly parinfer magithub diminish smartparens cider clojure-snippets hydra elein helm-google helm-cider clj-refactor rainbow-delimiters yaml-mode company-jedi python solarized-theme material-theme darcula-theme flycheck highlight-thing undo-tree exec-path-from-shell ess ssh jabber-otr jabber elpy writeroom-mode popwin org pandoc-mode pandoc markdown-mode multiple-cursors dracula-theme ##)))
  '(pandoc-binary "/usr/local/bin/pandoc")
  '(popwin:special-display-config
    (quote
@@ -150,6 +149,8 @@
      (slime-repl-mode)
      (slime-connection-list-mode))))
  '(python-check-command "/usr/local/bin/flake8")
+ '(python-shell-completion-native-enable nil)
+ '(python-shell-completion-native-try-output-timeout 3.0)
  '(python-shell-interpreter "python3")
  '(save-place-mode t)
  '(savehist-mode t)
@@ -157,6 +158,7 @@
  '(scroll-error-top-bottom t)
  '(scroll-margin 5)
  '(show-paren-mode t)
+ '(slime-kill-without-query-p t)
  '(sml/mode-width (quote full))
  '(sml/theme (quote powerline))
  '(sp-base-key-bindings nil)
@@ -179,10 +181,6 @@
  '(flymake-warnline ((t (:underline (:color "orange" :style wave)))))
  '(hi-yellow ((t (:background "#1b392d" :foreground "#a39450" :underline t))))
  '(linum ((t (:foreground "gray35" :slant normal))))
- '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 1.5))))
- '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.25))))
- '(org-level-1 ((t (:inherit outline-1 :height 1.4))))
- '(org-level-2 ((t (:inherit outline-2 :height 1.2))))
  '(scroll-bar ((t nil))))
 
 (load-theme 'darcula t)
@@ -217,15 +215,6 @@
 (exec-path-from-shell-initialize)
 
 ; Python
-(with-eval-after-load 'python
-  (defun python-shell-completion-native-try ()
-    "Return non-nil if can trigger native completion."
-    (let ((python-shell-completion-native-enable t)
-          (python-shell-completion-native-output-timeout
-           python-shell-completion-native-try-output-timeout))
-      (python-shell-completion-native-get-completions
-       (get-buffer-process (current-buffer))
-       nil "_"))))
 ;; ELPY
 (add-hook 'elpy-mode-hook 'flycheck-mode)
 (elpy-enable)
@@ -237,11 +226,23 @@
 (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
 (defun my-clojure-mode-hook ()
   (clj-refactor-mode 1)
+  (paredit-mode 0)
+  (parinfer-mode 1)
   (yas-minor-mode 1) ; for adding require/use/import statements
   ;; This choice of keybinding leaves cider-macroexpand-1 unbound
   (cljr-add-keybindings-with-prefix "C-c C-m"))
-
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
+
+; SLIME/SBCL
+(defun my-lisp-mode-hook ()
+  (paredit-mode 0)
+  (parinfer-mode 1)
+  (setq slime-lisp-implementations
+	'((sbcl ("sbcl" "--core" "/Users/m1st/sbcl.core-for-slime"))))
+  (setq slime-contribs '(slime-fancy slime-company))
+  (unless (slime-connected-p)
+    (save-excursion (slime))))
+(add-hook 'lisp-mode-hook #'my-lisp-mode-hook)
 
 ; Misc
 (add-hook 'prog-mode-hook 'highlight-thing-mode)
