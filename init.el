@@ -155,7 +155,6 @@
  '(pandoc-process-connection-type nil)
  '(paradox-automatically-star nil)
  '(paradox-execute-asynchronously t)
- '(paradox-github-token "cbed504f32b199377ecffc7585cd0479306de23a")
  '(password-cache-expiry 60)
  '(popwin-mode t)
  '(popwin:special-display-config
