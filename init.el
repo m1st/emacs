@@ -1,80 +1,122 @@
-(package-initialize)
+;;; init.el --- My init file
 
-(add-to-list 'load-path "~/.emacs.d/lisp/")
-(load-library "russian-macbook")
+;;; Commentary:
+
+;;; Code:
+
+(package-initialize)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(auto-save-visited-file-name t)
+ '(after-save-hook
+   (quote
+    (executable-make-buffer-file-executable-if-script-p)))
+ '(alert-user-configuration (quote ((nil osx-notifier nil))))
+ '(auto-compile-on-load-mode t)
+ '(auto-compile-on-save-mode t)
  '(blink-cursor-delay 0.3)
  '(blink-cursor-interval 0.5)
  '(calendar-date-style (quote european))
  '(calendar-week-start-day 1)
- '(cider-enlighten-mode nil)
- '(cider-repl-use-pretty-printing t)
  '(column-number-mode t)
- '(company-backends
-   (quote
-    (company-nxml company-css company-semantic company-clang company-xcode company-cmake company-capf company-files
-		  (company-dabbrev-code company-gtags company-etags company-keywords company-jedi)
-		  company-dabbrev)))
- '(company-show-numbers t)
+ '(company-show-numbers nil)
+ '(company-tooltip-align-annotations t)
+ '(company-tooltip-limit 20)
+ '(cua-mode nil nil (cua-base))
+ '(cursor-type (quote (bar . 2)))
  '(custom-magic-show-button t)
  '(custom-raised-buttons nil)
  '(custom-safe-themes
    (quote
-    ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "98cc377af705c0f2133bb6d340bf0becd08944a588804ee655809da5d8140de6" "fad38808e844f1423c68a1888db75adf6586390f5295a03823fa1f4959046f81" "ff7625ad8aa2615eae96d6b4469fcc7d3d20b2e1ebc63b761a349bebbb9d23cb" "dd6e52a5b1180f5c8bf408764a32867e2fa86594ded78a29040cafce6a4ea808" "eb0a314ac9f75a2bf6ed53563b5d28b563eeba938f8433f6d1db781a47da1366" default)))
+    ("732b807b0543855541743429c9979ebfb363e27ec91e82f463c91e68c772f6e3" "3d5720f488f2ed54dd4e40e9252da2912110948366a16aef503f3e9e7dfe4915" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "98cc377af705c0f2133bb6d340bf0becd08944a588804ee655809da5d8140de6" "fad38808e844f1423c68a1888db75adf6586390f5295a03823fa1f4959046f81" "ff7625ad8aa2615eae96d6b4469fcc7d3d20b2e1ebc63b761a349bebbb9d23cb" "dd6e52a5b1180f5c8bf408764a32867e2fa86594ded78a29040cafce6a4ea808" "eb0a314ac9f75a2bf6ed53563b5d28b563eeba938f8433f6d1db781a47da1366" default)))
+ '(default-input-method (quote russian-macbook))
  '(delete-selection-mode t)
  '(desktop-save-mode t)
+ '(dokuwiki-login-user-name "admin")
+ '(dokuwiki-xml-rpc-url "https://alebedev.site/wiki/lib/exe/xmlrpc.php")
  '(double-click-time 300)
- '(eldoc-minor-mode-string "Eldoc")
- '(elpy-mode-hook
-   (quote
-    (lambda nil
-      (progn
-	(setq-local flymake-start-syntax-check-on-newline t)
-	(setq-local flymake-no-changes-timeout 0.5)))))
+ '(eldoc-minor-mode-string nil)
+ '(electric-indent-mode t)
+ '(electric-layout-mode t)
+ '(elpy-disable-backend-error-display nil)
  '(elpy-modules
    (quote
-    (elpy-module-company elpy-module-eldoc elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-yasnippet elpy-module-django elpy-module-sane-defaults)))
+    (elpy-module-company elpy-module-eldoc elpy-module-pyvenv elpy-module-highlight-indentation elpy-module-yasnippet elpy-module-sane-defaults)))
  '(elpy-rpc-backend "jedi")
- '(elpy-rpc-python-command "/usr/local/bin/python3")
+ '(elpy-rpc-python-command "python3")
  '(elpy-syntax-check-command "/usr/local/bin/flake8")
- '(ess-sas-shell-buffer-remote-host "sasrtdm65")
- '(ess-sas-submit-command "/opt/sas/sashome/SASFoundation/9.4/sas")
- '(focus-follows-mouse nil)
+ '(exec-path-from-shell-variables (quote ("PATH" "MANPATH" "JAVA_HOME")))
+ '(flycheck-mode-line nil)
+ '(flyspell-mode-line-string nil)
  '(font-lock-global-modes (quote (not speedbar-mode)))
+ '(garbage-collection-messages t)
  '(gc-cons-percentage 0.2)
- '(gc-cons-threshold 80000000)
+ '(gc-cons-threshold 268435456)
+ '(global-company-mode t)
  '(global-hl-line-mode t)
  '(global-undo-tree-mode t)
  '(gnutls-trustfiles
    (quote
     ("/etc/ssl/certs/ca-certificates.crt" "/etc/pki/tls/certs/ca-bundle.crt" "/etc/ssl/ca-bundle.pem" "/usr/ssl/certs/ca-bundle.crt" "/usr/local/share/certs/ca-root-nss.crt" "/usr/local/etc/libressl/cert.pem")))
- '(helm-allow-mouse t)
- '(helm-cider-mode t)
- '(helm-google-suggest-search-url "https://google.com/search?ie=utf-8&oe=utf-8&q=%s")
- '(helm-google-url "https://google.ru/search?ie=UTF-8&oe=UTF-8&q=%s")
+ '(helm-boring-buffer-regexp-list
+   (quote
+    ("\\` " "\\`\\*helm" "\\`\\*Echo Area" "\\`\\*Minibuf" "\\`\\*sly-")))
  '(helm-mode t)
- '(helm-split-window-in-side-p t)
+ '(helm-popup-tip-mode t)
+ '(helm-white-buffer-regexp-list (quote ("\\`\\*sly-mrepl")))
  '(highlight-thing-delay-seconds 0.3)
  '(highlight-thing-what-thing (quote symbol))
  '(history-delete-duplicates t)
- '(inhibit-startup-echo-area-message nil)
- '(inhibit-startup-screen t)
+ '(indent-tabs-mode nil)
+ '(indicate-buffer-boundaries (quote left))
+ '(indicate-empty-lines nil)
+ '(inferior-lisp-program "/usr/local/bin/sbcl")
  '(isearch-allow-scroll t)
- '(line-number-mode t)
+ '(load-prefer-newer t)
+ '(lsp-document-sync-method (quote (quote incremental)))
  '(markdown-command "/usr/local/bin/pandoc")
  '(markdown-enable-math t)
+ '(markdown-use-pandoc-style-yaml-metadata t)
+ '(mbsync-status-line-re "([BCMS]: [/[:alnum:]]+)+")
+ '(message-send-mail-function (quote message-send-mail-with-sendmail))
  '(mouse-wheel-scroll-amount (quote (1 ((shift) . 1) ((control)))))
- '(ns-antialias-text t)
+ '(notmuch-address-internal-completion (quote (received nil)))
+ '(notmuch-after-tag-hook (quote (notmuch-hl-line-mode)))
+ '(notmuch-archive-tags (quote ("-inbox +archive")))
+ '(notmuch-hello-sections
+   (quote
+    (notmuch-hello-insert-header notmuch-hello-insert-saved-searches notmuch-hello-insert-search notmuch-hello-insert-recent-searches notmuch-hello-insert-alltags notmuch-hello-insert-inbox notmuch-hello-insert-footer)))
+ '(notmuch-saved-searches
+   (quote
+    ((:name "inbox" :query "tag:inbox" :key "i" :search-type tree)
+     (:name "unread" :query "tag:unread" :key "u")
+     (:name "flagged" :query "tag:flagged" :key "f")
+     (:name "sent" :query "tag:sent" :key "t")
+     (:name "drafts" :query "tag:draft" :key "d")
+     (:name "all mail" :query "*" :key "a"))))
+ '(notmuch-search-oldest-first nil)
+ '(notmuch-show-imenu-indent t)
+ '(notmuch-show-logo nil)
+ '(notmuch-tree-result-format
+   (quote
+    (("date" . "%12s  ")
+     ("authors" . "%-20s")
+     ((("tree" . "%s")
+       ("subject" . "%s"))
+      . " %-74s ")
+     ("tags" . "(%s)"))))
  '(ns-pop-up-frames nil)
  '(org-agenda-files (quote ("~/Dropbox/emacs/org")))
  '(org-agenda-mouse-1-follows-link t)
- '(org-babel-load-languages (quote ((emacs-lisp . t) (python . t))))
+ '(org-babel-load-languages
+   (quote
+    ((emacs-lisp . t)
+     (python . t)
+     (clojure . t)
+     (lisp . t))))
  '(org-capture-templates
    (quote
     (("m" "Capture meeting (meetings.org)" entry
@@ -91,40 +133,31 @@
  '(org-cycle-level-faces nil)
  '(org-directory "~/Dropbox/emacs/org")
  '(org-fontify-done-headline t)
- '(org-latex-default-packages-alist
-   (quote
-    (("AUTO" "inputenc" t
-      ("pdflatex"))
-     ("T1,T2A" "fontenc" t
-      ("pdflatex"))
-     ("" "graphicx" t)
-     ("" "grffile" t)
-     ("" "longtable" nil)
-     ("" "wrapfig" nil)
-     ("" "rotating" nil)
-     ("normalem" "ulem" t)
-     ("" "amsmath" t)
-     ("" "textcomp" t)
-     ("" "amssymb" t)
-     ("" "capt-of" nil)
-     ("" "hyperref" nil))))
- '(org-latex-packages-alist (quote (("english,russian" "babel" nil))))
- '(org-latex-tables-centered nil)
  '(org-modules
    (quote
-    (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-mouse org-rmail org-w3m)))
+    (org-bbdb org-bibtex org-docview org-gnus org-id org-info org-irc org-mhe org-mouse)))
  '(org-pretty-entities t)
  '(org-src-fontify-natively t)
+ '(org-support-shift-select t)
  '(org-todo-keywords (quote ((sequence "TODO" "DONE" "CANCELLED"))))
+ '(package-archive-priorities (quote (("melpa" . 100) ("elpa" . 50) ("marmalade" . 0))))
  '(package-archives
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
-     ("melpa" . "http://melpa.org/packages/"))))
+     ("melpa" . "http://melpa.org/packages/")
+     ("marmalade" . "http://marmalade-repo.org/packages/"))))
+ '(package-check-signature nil)
  '(package-enable-at-startup t)
  '(package-selected-packages
    (quote
-    (slime slime-company osx-plist ox-tiddly parinfer magithub diminish smartparens cider clojure-snippets hydra elein helm-google helm-cider clj-refactor rainbow-delimiters yaml-mode company-jedi python solarized-theme material-theme darcula-theme flycheck highlight-thing undo-tree exec-path-from-shell ess ssh jabber-otr jabber elpy writeroom-mode popwin org pandoc-mode pandoc markdown-mode multiple-cursors dracula-theme ##)))
+    (dokuwiki-mode dokuwiki ox-jira org-alert sly sly-company sly-hello-world sly-macrostep sly-named-readtables sly-quicklisp sly-repl-ansi-color helm-tramp helm-swoop ace-isearch helm helm-ag helm-cider helm-company helm-notmuch helm-pass helm-xref pyimport smart-mode-line elpy mac-pseudo-daemon deft org-brain pipenv markdown-preview-mode geiser racket-mode python-mode mbsync notmuch cheatsheet lsp-java paradox projectile lsp-ui company-lsp dockerfile-mode docker flycheck-julia auto-async-byte-compile julia-repl dired+ julia-mode emacsql-psql logstash-conf groovy-mode auto-compile racer flycheck-rust cargo rust-mode slime slime-company parinfer magithub diminish cider clojure-snippets hydra elein clj-refactor rainbow-delimiters yaml-mode solarized-theme material-theme darcula-theme flycheck highlight-thing undo-tree exec-path-from-shell ssh jabber-otr jabber writeroom-mode popwin org pandoc-mode pandoc markdown-mode multiple-cursors dracula-theme ##)))
  '(pandoc-binary "/usr/local/bin/pandoc")
+ '(pandoc-process-connection-type nil)
+ '(paradox-automatically-star nil)
+ '(paradox-execute-asynchronously t)
+ '(paradox-github-token "cbed504f32b199377ecffc7585cd0479306de23a")
+ '(password-cache-expiry 60)
+ '(popwin-mode t)
  '(popwin:special-display-config
    (quote
     (("*Miniedit Help*" :position bottom :noselect t)
@@ -149,41 +182,40 @@
      (slime-repl-mode)
      (slime-connection-list-mode))))
  '(python-check-command "/usr/local/bin/flake8")
- '(python-shell-completion-native-enable nil)
- '(python-shell-completion-native-try-output-timeout 3.0)
  '(python-shell-interpreter "python3")
+ '(racket-program "/Applications/Racket v6.12/bin/racket")
+ '(rust-format-on-save t)
  '(save-place-mode t)
  '(savehist-mode t)
  '(scroll-bar-mode nil)
  '(scroll-error-top-bottom t)
- '(scroll-margin 5)
+ '(scroll-margin 0)
+ '(send-mail-function (quote mailclient-send-it))
  '(show-paren-mode t)
- '(slime-kill-without-query-p t)
- '(sml/mode-width (quote full))
- '(sml/theme (quote powerline))
- '(sp-base-key-bindings nil)
- '(telephone-line-evil-use-short-tag t)
- '(telephone-line-mode t)
- '(telephone-line-primary-left-separator (quote telephone-line-cubed-left))
- '(telephone-line-primary-right-separator (quote telephone-line-cubed-right))
- '(telephone-line-secondary-left-separator (quote telephone-line-cubed-hollow-left))
- '(telephone-line-secondary-right-separator (quote telephone-line-cubed-hollow-right))
+ '(size-indication-mode t)
+ '(sql-postgres-login-params
+   (quote
+    ((user :default "m1st")
+     server
+     (database :default "m1st")
+     port)))
  '(tool-bar-mode nil)
- '(visible-bell t)
  '(void-text-area-pointer nil)
  '(windmove-wrap-around t)
  '(word-wrap t))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(flymake-warnline ((t (:underline (:color "orange" :style wave)))))
+ '(cursor ((t (:background "gray90" :foreground "#042028"))))
+ '(flycheck-warning ((t (:underline (:color "yellow" :style wave)))))
  '(hi-yellow ((t (:background "#1b392d" :foreground "#a39450" :underline t))))
  '(linum ((t (:foreground "gray35" :slant normal))))
  '(scroll-bar ((t nil))))
 
-(load-theme 'darcula t)
+(load-theme 'dracula t)
 
 ;; BUG: Unfortunately, auto initialization of popwin pkg did not work.
 (require 'popwin)
@@ -191,75 +223,93 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-(add-hook 'markdown-mode-hook 'pandoc-mode)
-
-; Auto rebuild agenda on Org mode save.
-(defun my-redo-all-agenda-buffers ()
-  (interactive)
-  (dolist (buffer (buffer-list))
-    (with-current-buffer buffer
-      (when (derived-mode-p 'org-agenda-mode)
-	(let ((w (get-buffer-window buffer t)) (w0 (selected-window)))
-	  (when w
-	    (select-window w)
-	    (org-agenda-redo)
-	    (select-window w0)
-	    ))))))
-
-(add-hook 'org-mode-hook
-	  (lambda()
-	    (add-hook 'after-save-hook 'my-redo-all-agenda-buffers nil nil)))
-
 (windmove-default-keybindings 'super)
 
 (exec-path-from-shell-initialize)
+                                        ; Prog modes
 
-; Python
-;; ELPY
-(add-hook 'elpy-mode-hook 'flycheck-mode)
-(elpy-enable)
-; Treat underscore as a part of the word.
-(modify-syntax-entry ?_ "w")
-
-; Clojure
-(global-company-mode)
 (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
-(defun my-clojure-mode-hook ()
-  (clj-refactor-mode 1)
-  (paredit-mode 0)
-  (parinfer-mode 1)
-  (yas-minor-mode 1) ; for adding require/use/import statements
-  ;; This choice of keybinding leaves cider-macroexpand-1 unbound
-  (cljr-add-keybindings-with-prefix "C-c C-m"))
-(add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
-; SLIME/SBCL
+(defun my-prog-mode-hook ()
+  "Global programming mode customizations."
+  (eldoc-mode t)
+  (flycheck-mode t))
+(add-hook 'prog-mode-hook #'my-prog-mode-hook)
+
+;; Python
+(elpy-enable)
+
+;; Java
+;; (defun my-java-mode-hook ()
+;;    "Java mode hook."
+;;    (require 'lsp-java)
+;;    (lsp-java-enable)
+;;    (require 'lsp-ui)
+;;    (add-hook 'lsp-mode-hook 'lsp-ui-mode)
+;;    (require 'company-lsp)
+;;    (push 'company-lsp company-backends))
+;; (add-hook 'java-mode-hook #'my-java-mode-hook)
+
+
+;; All Lisps modes
+
+;; (eval-when-compile
+;;   (defvar slime-lisp-implementations))
+;; (setq slime-lisp-implementations '((sbcl ("sbcl"))))
+;; (setq slime-contribs '(slime-fancy slime-company slime-repl slime-autodoc))
+
+;; (add-hook 'slime-mode-hook
+;;           (lambda ()
+;;             (unless (slime-connected-p)
+;;               (save-mark-and-excursion (slime)))))
+
+;; Clojure
 (defun my-lisp-mode-hook ()
-  (paredit-mode 0)
-  (parinfer-mode 1)
-  (setq slime-lisp-implementations
-	'((sbcl ("sbcl" "--core" "/Users/m1st/sbcl.core-for-slime"))))
-  (setq slime-contribs '(slime-fancy slime-company))
-  (unless (slime-connected-p)
-    (save-excursion (slime))))
-(add-hook 'lisp-mode-hook #'my-lisp-mode-hook)
+  "Clojure mode hook."
+  (parinfer-mode t)
+  (yas-minor-mode t))
 
-; Misc
-(add-hook 'prog-mode-hook 'highlight-thing-mode)
-(global-set-key (kbd "M-x") 'helm-M-x)
+(add-hook 'clojure-mode-hook #'my-lisp-mode-hook)
+(add-hook 'common-lisp-mode-hook #'my-lisp-mode-hook)
+(add-hook 'emacs-lisp-mode-hook #'my-lisp-mode-hook)
+(add-hook 'clojure-mode-hook #'my-lisp-mode-hook)
+
+;; Rust
+(add-hook 'rust-mode-hook #'racer-mode)
+
+
+                                        ; Misc
+
+(add-hook 'markdown-mode-hook 'pandoc-mode)
+(add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
 
 (diminish 'helm-mode)
+(diminish 'highlight-thing-mode-major-mode)
 (diminish 'highlight-thing-mode)
 (diminish 'undo-tree-mode)
 (diminish 'clj-refactor-mode)
-(diminish 'smartparens-mode)
+(diminish 'company-mode)
+(diminish 'visual-line-mode)
 
 ;; Keybindings
+(global-set-key (kbd "<home>") 'move-beginning-of-line)
+(global-set-key (kbd "<end>") 'move-end-of-line)
 (global-set-key (kbd "s-Z") 'redo)
 (global-set-key [C-left] 'previous-buffer)
 (global-set-key [C-right] 'next-buffer)
-; Org Mode
+
+;; Helm
+;;; Helm instead of standard for buffers/M-x/find file
+(global-set-key (kbd "C-x b") #'helm-mini)
+(global-set-key (kbd "M-x") #'helm-M-x)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
+
+;;; Helm search with C-s and s-f
+(global-set-key (kbd "C-s") #'helm-swoop)
+(global-set-key (kbd "s-f") #'helm-swoop)
+
+;; Org Mode
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
-; Lang switcher with Karabiner and Caps Lock
-(global-set-key (kbd "<f12>") (kbd "C-\\"))
+
+;;; init.el ends here

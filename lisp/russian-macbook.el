@@ -1,3 +1,9 @@
+;;; russian-macbook.el --- provides simple input method for multilingual textЙЦУКЕН Russian computer layout for Macbook keyboard
+
+;;; Commentary:
+
+;;; Code:
+
 (quail-define-package
  "russian-macbook" "Russian" "RU" nil
  "ЙЦУКЕН Russian computer layout for Macbook keyboard"
@@ -113,4 +119,3 @@
 ;;; russian-macbook.el ends here
 (provide 'russian-macbook)
 
-(setq default-input-method 'russian-macbook)
